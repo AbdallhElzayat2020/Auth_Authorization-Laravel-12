@@ -24,12 +24,16 @@ Route::controller(RegisterController::class)->group(function () {
 });
 
 
-Route::get('forget-password', [ForgetPasswordController::class, 'showForgetPasswordForm'])->name('password.request');
-Route::post('forget-password', [ForgetPasswordController::class, 'sendResetEmail'])->name('password.email');
+Route::controller(ForgetPasswordController::class)->group(function () {
+    Route::get('forget-password', 'showForgetPasswordForm')->name('password.request');
+    Route::post('forget-password', 'sendResetEmail')->name('password.email');
+});
 
 
-Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-Route::post('reset-password', [ResetPasswordController::class, 'updatePassword'])->name('password.update');
+Route::controller(ResetPasswordController::class)->group(function () {
+    Route::get('reset-password/{token}', 'showResetForm')->name('password.reset');
+    Route::post('reset-password', 'updatePassword')->name('password.update');
+});
 
 
 Route::middleware('auth')->group(function () {

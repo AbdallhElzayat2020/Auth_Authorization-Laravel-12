@@ -13,7 +13,7 @@ class SendResetLinkMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $resetUrl;
+    public string $resetUrl;
 
     public function __construct(string $token)
     {

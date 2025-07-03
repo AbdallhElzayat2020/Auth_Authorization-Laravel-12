@@ -24,6 +24,9 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        if (!$user) {
+            return redirect()->back()->with('error', 'Registration failed, please try again.');
+        }
         Auth::login($user);
         return redirect()->route('profile')->with('success', 'Registration successfully, ' . $user->name);
     }
