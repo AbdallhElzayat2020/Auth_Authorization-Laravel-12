@@ -10,13 +10,28 @@
 <body class="bg-gray-900 text-white mt-20 flex justify-center p-6">
 <div class="max-w-2xl w-full bg-gray-800 rounded-lg shadow-lg overflow-hidden">
     <!-- Profile Header -->
-    <div class="p-6 bg-gray-700 flex items-center">
-        <img src="https://fakeimg.pl/100x100" alt="Profile Picture" class="w-24 h-24 rounded-full border-4 border-gray-500">
-        <div class="ml-6">
-            <ul class="space-y-2">
-                <li><h2 class="text-2xl font-bold">John Doe</h2></li>
-                <li><span class="font-semibold">Email:</span> john.doe@example.com</li>
-            </ul>
+    <div class="p-6 bg-gray-700">
+        @session('success')
+        <div class="text-green-700 text-sm my-2">
+            {{ session('success') }}
+        </div>
+        @endsession
+        <div class="flex items-center">
+            <img src="https://fakeimg.pl/100x100" alt="Profile Picture" class="w-24 h-24 rounded-full border-4 border-gray-500">
+            <div class="ml-6">
+                <ul class="space-y-2">
+                    <li><h2 class="text-2xl font-bold">{{auth()->user()->name}}</h2></li>
+                    <li><span class="font-semibold">Email:</span> {{auth()->user()->email}}</li>
+                </ul>
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button type="submit"
+                            class=" p-2 mt-4 bg-red-600 rounded-lg font-semibold text-white
+                            hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                        Logout
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
