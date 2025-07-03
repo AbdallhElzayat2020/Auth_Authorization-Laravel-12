@@ -15,14 +15,19 @@
         {{ session('error') }}
     </div>
     @endsession
-    <form action="{{ route('login') }}" method="POST" class="space-y-4">
+    @session('success')
+    <div class="text-white bg-green-500 text-lg p-2 rounded-sm my-2">
+        {{ session('success') }}
+    </div>
+    @endsession
+    <form action="{{url("login")}}" method="POST" class="space-y-4">
         @csrf
         <div>
             <label for="email" class="block mb-2 text-sm font-medium">Email</label>
-            <input type="email" id="email" name="email" value="{{old('email')}}" autofocus autocomplete="email"
+            <input type="email" id="email" name="email" autocomplete="off" autofocus
                    class="w-full p-3 rounded bg-gray-700 text-gray-100 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
             @error('email')
-            <span class="text-red-500 text-sm mt-1"> {{ $message }}</span>
+            <span class="text-red-500 text-sm mt-1">{{$message}}</span>
             @enderror
         </div>
         <div>
@@ -30,9 +35,10 @@
             <input type="password" id="password" name="password"
                    class="w-full p-3 rounded bg-gray-700 text-gray-100 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
             @error('password')
-            <span class="text-red-500 text-sm mt-1"> {{ $message }}</span>
+            <span class="text-red-500 text-sm mt-1">{{$message}}</span>
             @enderror
         </div>
+        <p class="mt-4 text-sm">Forgot your passsword? <a href="{{ route('password.request') }}" class="text-blue-400 hover:underline">Reset now</a></p>
         <button type="submit"
                 class="w-full py-3 mt-4 bg-blue-600 rounded-lg font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
             Login
